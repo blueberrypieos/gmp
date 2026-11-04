@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: BSD-2-Clause
+# Copyright (c) 2026 The Blueberry Pie OS Authors
+libgmp: copyright-file-contains-full-gpl-license
+libgmp: copyright-not-using-common-license-for-lgpl
+libgmp: old-fsf-address-in-copyright-file
+libgmp: initial-upload-closes-no-bugs [usr/share/doc/libgmp/changelog.Debian.gz:1]
+libgmp: executable-not-elf-or-script [usr/lib/libgmp.10.dylib]

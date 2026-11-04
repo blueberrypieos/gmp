@@ -1,0 +1,5 @@
+usr/include/*
+usr/lib/pkgconfig/*
+usr/lib/libgmp.dylib
+usr/share/doc/libgmp-dev/changelog.Debian.gz
+usr/share/lintian/overrides/libgmp-dev

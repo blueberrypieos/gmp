@@ -1,0 +1,97 @@
+Description: Only the library is configured and built
+ The packages ship only libgmp, gmp.h and gmp.pc. Without tests, cxx,
+ demos, tune and doc in AC_OUTPUT and SUBDIRS, automake and configure
+ do not read their makefiles, the demos' config headers or gmpxx.pc.in.
+ Without the demos, configure needs no yacc or lex. In foreign mode
+ automake needs no AUTHORS, ChangeLog, NEWS or README.
+Author: The Blueberry Pie OS Authors
+Forwarded: not-needed
+Last-Update: 2026-11-04
+---
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,4 +1,6 @@
+ ## Process this file with automake to generate Makefile.in
++# Modified 2026-11-04: only the library is built (GPL-2.0 section 2(a), GPL-3.0 section 5(a)).
++# Modified 2026-11-04: automake runs in foreign mode (GPL-2.0 section 2(a), GPL-3.0 section 5(a)).
+ 
+ 
+ # Copyright 1991, 1993, 1994, 1996, 1997, 1999-2004, 2006-2009, 2011-2016,
+@@ -36,7 +38,7 @@
+ # Makefiles in subdirectories, but here we must omit it so automake gives
+ # the actual ansi2knr build rule, not "cd $(top_builddir) && make ansi2knr".
+ #
+-# AUTOMAKE_OPTIONS = 1.8 gnu no-dependencies
++# AUTOMAKE_OPTIONS = 1.8 foreign no-dependencies
+ 
+ 
+ # Libtool -version-info for libgmp.la and libmp.la.  See "Versioning" in the
+@@ -113,7 +115,7 @@ LIBGMPXX_LT_REVISION = 0
+ LIBGMPXX_LT_AGE      = 7
+ 
+ 
+-SUBDIRS = tests mpn mpz mpq mpf printf scanf rand cxx demos tune doc
++SUBDIRS = mpn mpz mpq mpf printf scanf rand
+ 
+ EXTRA_DIST = configfsf.guess configfsf.sub .gdbinit INSTALL.autoconf \
+ 	     COPYING.LESSERv3 COPYINGv2 COPYINGv3
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,4 +1,6 @@
+ dnl  Process this file with autoconf to produce a configure script.
++dnl  Modified 2026-11-04: only the library is configured (GPL-2.0 section 2(a), GPL-3.0 section 5(a)).
++dnl  Modified 2026-11-04: automake runs in foreign mode (GPL-2.0 section 2(a), GPL-3.0 section 5(a)).
+ 
+ 
+ define(GMP_COPYRIGHT,[[
+@@ -78,7 +80,7 @@ dnl
+ dnl  Note that there's a copy of these options in the top-level Makefile.am,
+ dnl  so update there too if changing anything.
+ dnl
+-AM_INIT_AUTOMAKE([1.8 gnu no-dependencies subdir-objects])
++AM_INIT_AUTOMAKE([1.8 foreign no-dependencies subdir-objects])
+ AC_CONFIG_HEADERS(config.h:config.in)
+ AM_MAINTAINER_MODE
+ 
+@@ -4009,7 +4011,6 @@ AC_SUBST(TUNE_SQR_OBJ)
+ 
+ # Configs for demos/pexpr.c.
+ #
+-AC_CONFIG_FILES(demos/pexpr-config.h:demos/pexpr-config-h.in)
+ GMP_SUBST_CHECK_FUNCS(clock, cputime, getrusage, gettimeofday, sigaction, sigaltstack, sigstack)
+ GMP_SUBST_CHECK_HEADERS(sys/resource.h)
+ AC_CHECK_TYPES([stack_t], HAVE_STACK_T_01=1, HAVE_STACK_T_01=0,
+@@ -4035,7 +4036,6 @@ AC_SUBST(HAVE_STACK_T_01)
+ # also seen readline/history.h missing, not sure if that's just a broken
+ # install or a very old version, but check that too.
+ #
+-AC_CONFIG_FILES(demos/calc/calc-config.h:demos/calc/calc-config-h.in)
+ LIBCURSES=
+ if test $with_readline != no; then
+   AC_CHECK_LIB(ncurses, tputs, [LIBCURSES=-lncurses],
+@@ -4058,8 +4058,6 @@ if test $use_readline = yes; then
+ else
+   WITH_READLINE_01=0
+ fi
+-AC_PROG_YACC
+-AM_PROG_LEX
+ 
+ LT_INIT
+ 
+@@ -4072,14 +4070,8 @@ GMP_FINISH
+ 
+ AC_OUTPUT(Makefile							\
+   mpf/Makefile mpn/Makefile mpq/Makefile				\
+-  mpz/Makefile printf/Makefile scanf/Makefile rand/Makefile cxx/Makefile \
+-  tests/Makefile tests/devel/Makefile					\
+-  tests/mpf/Makefile tests/mpn/Makefile tests/mpq/Makefile		\
+-  tests/mpz/Makefile tests/rand/Makefile tests/misc/Makefile		\
+-  tests/cxx/Makefile							\
+-  doc/Makefile tune/Makefile						\
+-  demos/Makefile demos/calc/Makefile demos/expr/Makefile		\
+-  gmp.h:gmp-h.in gmp.pc:gmp.pc.in gmpxx.pc:gmpxx.pc.in)
++  mpz/Makefile printf/Makefile scanf/Makefile rand/Makefile		\
++  gmp.h:gmp-h.in gmp.pc:gmp.pc.in)
+ 
+ AC_MSG_NOTICE([summary of build options:
+ 

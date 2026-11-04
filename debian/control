@@ -1,5 +1,5 @@
 Source: gmp
-Section: libs
+Section: community/libs
 Priority: optional
 Maintainer: Maxwell <maxwell@blueberrypieos.com>
 Build-Depends: pietoolchain (>= 0.1.0), autoconf, automake, libtool
@@ -17,7 +17,7 @@ Description: multiple-precision arithmetic library
  floating-point numbers with arbitrary precision.
 
 Package: libgmp-dev
-Section: libdevel
+Section: community/libdevel
 Architecture: darwin-arm64
 Depends: libgmp (= ${binary:Version})
 Description: multiple-precision arithmetic library: development files
